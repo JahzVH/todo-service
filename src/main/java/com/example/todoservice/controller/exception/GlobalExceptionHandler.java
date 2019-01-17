@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
-
+	
 	@ExceptionHandler({ NullPointerException.class, PersistenceException.class })
 	public ResponseEntity<ApiError> handleRuntimeException(RuntimeException e) {
 		String message = "Unexpected error occurred";

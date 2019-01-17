@@ -83,7 +83,8 @@ public class ListService {
 	}
 
 	private User getAuthorizedUser(Authentication authentication) {
-		return userRepository.findOneByUsername(authentication.getName());
+		return userRepository.findOneByUsername(authentication.getName())
+				.orElseThrow(() -> new RecordNotFoundException("User not found"));
 	}
 
 }

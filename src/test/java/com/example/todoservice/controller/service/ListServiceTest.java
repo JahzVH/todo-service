@@ -41,6 +41,8 @@ public class ListServiceTest extends TestMockData {
 	private UserRepository userRepository;
 
 	private Optional<List> listData;
+	
+	private Optional<User> userData;
 
 	@Before
 	public void setup() throws Exception {
@@ -50,8 +52,9 @@ public class ListServiceTest extends TestMockData {
 		initData();
 
 		listData = Optional.of(list);
+		userData = Optional.of(user);
 		authentication = mock(Authentication.class);
-		when(userRepository.findOneByUsername(any())).thenReturn(user);
+		when(userRepository.findOneByUsername(any())).thenReturn(userData);
 		when(listRepository.save(any(List.class))).thenReturn(list);
 		when(listRepository.findOneByListIdAndUser(any(Integer.class), any(User.class))).thenReturn(listData);
 	}

@@ -12,31 +12,40 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.example.todoservice.controller.AuthController;
 import com.example.todoservice.controller.ListController;
+import com.example.todoservice.controller.TestMockData;
 import com.example.todoservice.exception.RecordNotFoundException;
 import com.example.todoservice.service.ListService;
+import com.example.todoservice.service.UserService;
 
 @RunWith(SpringRunner.class)
-public class GlobalExceptionHandlerTest {
+public class GlobalExceptionHandlerTest extends TestMockData {
 
 	@InjectMocks
 	private ListController listController;
 
+	@InjectMocks
+	private AuthController authController;
+
 	@MockBean
 	private ListService listService;
 
-	private MockMvc mockMvc;
+	@MockBean
+	private UserService userService;
 
 	@Before
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(listController).setControllerAdvice(new GlobalExceptionHandler())
-				.build();
+		mockMvc = MockMvcBuilders.standaloneSetup(listController, authController)
+				.setControllerAdvice(new GlobalExceptionHandler()).build();
+
+		// Init common data for mocks
+		initData();
 	}
 
 	@Test

@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.todoservice.controller.request.ItemRequest;
 import com.example.todoservice.controller.request.ListRequest;
+import com.example.todoservice.controller.request.LoginRequest;
 import com.example.todoservice.model.Item;
 import com.example.todoservice.model.List;
 import com.example.todoservice.model.User;
@@ -29,6 +31,8 @@ public class TestMockData {
 	
 	protected ListRequest listRequest;
 	
+	protected LoginRequest loginRequest;
+	
 	protected Authentication authentication;
 	
 	protected void initData() {
@@ -37,7 +41,7 @@ public class TestMockData {
 
 		user = new User();
 		user.setEnabled(true);
-		user.setPassword("password");
+		user.setPassword(new BCryptPasswordEncoder().encode("password"));
 		user.setUserId(1);
 		user.setUsername("username");
 
@@ -61,6 +65,10 @@ public class TestMockData {
 		itemRequest.setCompleted(false);
 		itemRequest.setDueDate(null);
 		itemRequest.setItem("item");
+		
+		loginRequest = new LoginRequest();
+		loginRequest.setPassword("password");
+		loginRequest.setUsername("username");
 		
 	}
 	
