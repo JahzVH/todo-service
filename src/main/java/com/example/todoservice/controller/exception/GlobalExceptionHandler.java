@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.PersistenceException;
 
+import com.example.todoservice.exception.UsertNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,15 @@ public class GlobalExceptionHandler {
 		ApiError error = new ApiError(message, e.getMessage(), LocalDateTime.now());
 
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler({ UsertNotFoundException.class })
+	public ResponseEntity<ApiError> handleUserNotFoundException(UsertNotFoundException e) {
+		String message = "No user found";
+		logger.error(message, e);
+		ApiError error = new ApiError(message, e.getMessage(), LocalDateTime.now());
+
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler({ NullPointerException.class, PersistenceException.class })

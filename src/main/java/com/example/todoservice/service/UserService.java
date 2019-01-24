@@ -1,5 +1,6 @@
 package com.example.todoservice.service;
 
+import com.example.todoservice.exception.UsertNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class UserService {
 	 */
 	public Boolean authenticateUser(LoginRequest loginRequest) {
 		User user = userRepository.findOneByUsername(loginRequest.getUsername())
-				.orElseThrow(() -> new RecordNotFoundException("User not found"));
+				.orElseThrow(() -> new UsertNotFoundException("User not found"));
 
 		return new BCryptPasswordEncoder().matches(loginRequest.getPassword(), user.getPassword());
 
