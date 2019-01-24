@@ -34,6 +34,8 @@ public class Item {
 
 	private LocalDateTime dueDate;
 
+	private String prioridad;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "listId")
 	@JsonIgnore

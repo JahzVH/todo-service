@@ -20,4 +20,6 @@ public class ItemRequest {
 	
 	private LocalDateTime dueDate;
 
+	private String prioridad;
+
 }

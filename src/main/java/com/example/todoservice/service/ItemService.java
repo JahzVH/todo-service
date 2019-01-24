@@ -64,7 +64,8 @@ public class ItemService {
 		itemRepository.deleteByItemIdAndListAndUser(itemId, list, list.getUser());
 	}
 
-	private void generateItem(ItemRequest itemRequest, Item item, List list) {
+	private void
+	generateItem(ItemRequest itemRequest, Item item, List list) {
 		BeanUtils.copyProperties(itemRequest, item, "user");
 		item.setList(list);
 		item.setUser(list.getUser());
